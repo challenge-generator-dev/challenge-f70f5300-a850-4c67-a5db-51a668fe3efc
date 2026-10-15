@@ -1,0 +1,22 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: bancos-contadores-service
+  labels:
+    app: bancos-contadores
+spec:
+  type: LoadBalancer
+  selector:
+    app: bancos-contadores
+  ports:
+  - name: http
+    protocol: TCP
+    port: 80
+    targetPort: 8080
+  sessionAffinity: ClientIP
+  sessionAffinityConfig:
+    clientIP:
+      timeoutSeconds: 10800
+  externalTrafficPolicy: Cluster
+  internalTrafficPolicy: Cluster
+---
